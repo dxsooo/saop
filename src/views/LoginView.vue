@@ -9,7 +9,7 @@
                     autocomplete="off" />
             </el-form-item>
 
-            <el-button type="primary" style="width:100%; margin-bottom:30px;">
+            <el-button type="primary" @click="onSubmit" style="width:100%; margin-bottom:30px;">
                 登录
             </el-button>
         </el-form>
@@ -18,11 +18,17 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
+import { login } from '@/api/login'
 
 const loginForm = reactive({
     account: '',
     password: '',
 })
+
+const onSubmit = async () => {
+    console.log('submit!')
+    await login(loginForm)
+}
 </script>
 
 <style lang="scss">
