@@ -51,7 +51,6 @@ import { get_user_list } from '@/api/user'
 const tableData = ref(null)
 
 async function fetchData() {
-    tableData.value = null
     const res = await get_user_list(null)
     tableData.value = res.data.data.items
 }
