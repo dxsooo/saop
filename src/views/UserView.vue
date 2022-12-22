@@ -24,13 +24,19 @@
             </el-header>
 
             <el-main>
-                <el-scrollbar>
-                    <el-table :data="tableData">
-                        <el-table-column prop="date" label="Date" width="140" />
-                        <el-table-column prop="name" label="Name" width="120" />
-                        <el-table-column prop="address" label="Address" />
-                    </el-table>
-                </el-scrollbar>
+                <div align="right">
+                    <el-button type="primary" style="width:100px;">
+                        新建
+                    </el-button>
+                    <el-button type="primary" style="width:100px;">
+                        批量创建
+                    </el-button>
+                </div>
+                <el-table :data="tableData">
+                    <el-table-column prop="id" label="id" width="140" />
+                    <el-table-column prop="username" label="用户名" width="240" />
+                    <el-table-column prop="role_name" label="角色" />
+                </el-table>
             </el-main>
         </el-container>
     </el-container>
@@ -40,14 +46,17 @@
 import { ref } from 'vue'
 import { Setting } from '@element-plus/icons-vue'
 import Menu from '../components/Menu.vue'
+import { get_user_list } from '@/api/user'
 
+const tableData = ref(null)
 
-const item = {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+async function fetchData() {
+    tableData.value = null
+    const res = await get_user_list(null)
+    tableData.value = res.data.data.items
 }
-const tableData = ref(Array.from({ length: 50 }).fill(item))
+
+fetchData()
 </script>
   
 <style scoped>
