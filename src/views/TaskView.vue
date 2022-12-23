@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-container-demo" style="height: 100%">
         <el-aside width="200px">
-            <Menu />
+            <SideMenu />
         </el-aside>
 
         <el-container>
@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Setting } from '@element-plus/icons-vue'
-import Menu from '../components/Menu.vue'
+import SideMenu from '../components/SideMenu.vue'
 
 
 const item = {

@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-container-demo" style="height: 100%">
         <el-aside width="200px">
-            <Menu />
+            <SideMenu />
         </el-aside>
 
         <el-container>
@@ -24,7 +24,7 @@
             </el-header>
 
             <el-main>
-                <div align="right">
+                <div class="operationBar">
                     <el-button type="primary" style="width:100px;">
                         新建
                     </el-button>
@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Setting } from '@element-plus/icons-vue'
-import Menu from '../components/Menu.vue'
+import SideMenu from '../components/SideMenu.vue'
 import { get_user_list } from '@/api/user'
 
 const tableData = ref(null)
@@ -84,6 +84,11 @@ fetchData()
     justify-content: center;
     height: 100%;
     right: 20px;
+}
+
+.layout-container-demo .operationBar {
+    display: flex;
+    justify-content: right;
 }
 </style>
   

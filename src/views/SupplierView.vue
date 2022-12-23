@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-container-demo" style="height: 100%">
         <el-aside width="200px">
-            <Menu />
+            <SideMenu />
         </el-aside>
 
         <el-container>
@@ -24,7 +24,7 @@
             </el-header>
 
             <el-main>
-                <div align="right">
+                <div class="operationBar">
                     <el-button type="primary" style="width:100px;">
                         新建
                     </el-button>
@@ -35,11 +35,7 @@
                 <el-table :data="tableData">
                     <el-table-column prop="id" label="id" width="140" />
                     <el-table-column prop="name" label="名称" width="240" />
-                    <el-table-column label="创建者" width="240">
-                        <template #default="scope">
-                            {{ scope.row.creator.name }}
-                        </template>
-                    </el-table-column>
+                    <el-table-column prop="creator.name" label="创建者" width="240" />
                     <el-table-column label="负责人" width="240">
                         <template #default="scope">
                             {{ joinName(scope.row.ops) }}
@@ -55,7 +51,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Setting } from '@element-plus/icons-vue'
-import Menu from '../components/Menu.vue'
+import SideMenu from '../components/SideMenu.vue'
 import { get_supplier_list } from '@/api/supplier'
 
 const tableData = ref(null)
@@ -106,6 +102,11 @@ const joinName = (items: any) => {
     justify-content: center;
     height: 100%;
     right: 20px;
+}
+
+.layout-container-demo .operationBar {
+    display: flex;
+    justify-content: right;
 }
 </style>
   
