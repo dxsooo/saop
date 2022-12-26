@@ -7,7 +7,29 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      children: [
+        {
+          path: '/user',
+          name: 'user',
+          component: () => import('../views/UserView.vue')
+        },
+        {
+          path: '/supplier',
+          name: 'supplier',
+          component: () => import('../views/SupplierView.vue')
+        },
+        {
+          path: '/project',
+          name: 'project',
+          component: () => import('../views/ProjectView.vue')
+        },
+        {
+          path: '/task',
+          name: 'task',
+          component: () => import('../views/TaskView.vue')
+        }
+      ]
     },
     {
       path: '/about',
@@ -21,26 +43,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue')
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: () => import('../views/UserView.vue')
-    },
-    {
-      path: '/supplier',
-      name: 'supplier',
-      component: () => import('../views/SupplierView.vue')
-    },
-    {
-      path: '/project',
-      name: 'project',
-      component: () => import('../views/ProjectView.vue')
-    },
-    {
-      path: '/task',
-      name: 'task',
-      component: () => import('../views/TaskView.vue')
     }
   ]
 })
