@@ -2,16 +2,16 @@
     <div class="menu">
         <h2>数据标注运营平台</h2>
         <el-menu router v-if="loaded">
-            <el-menu-item v-if="isAllowUserManage()" index="user">
+            <el-menu-item v-if="isAllowUserManage()" index="/userManage">
                 用户管理
             </el-menu-item>
-            <el-menu-item v-if="isAllowSupplierManage()" index="supplier">
+            <el-menu-item v-if="isAllowSupplierManage()" index="/supplier">
                 供应商管理
             </el-menu-item>
-            <el-menu-item v-if="isAllowProjectManage()" index="project">
+            <el-menu-item v-if="isAllowProjectManage()" index="/project">
                 项目管理
             </el-menu-item>
-            <el-menu-item v-if="isAllowTaskManage()" index="task">
+            <el-menu-item v-if="isAllowTaskManage()" index="/task">
                 任务管理
             </el-menu-item>
         </el-menu>

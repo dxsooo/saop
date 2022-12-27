@@ -1,6 +1,6 @@
 <template>
     <div class="operationBar">
-        <el-button type="primary" style="width:100px;">
+        <el-button type="primary" style="width:100px;" @click="createNewUser()">
             新建
         </el-button>
         <el-button type="primary" style="width:100px;">
@@ -17,8 +17,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { get_user_list } from '@/api/user'
+import { useRouter } from 'vue-router'
+
 
 const tableData = ref(null)
+const router = useRouter()
 
 async function fetchData() {
     const res = await get_user_list(null)
@@ -26,6 +29,10 @@ async function fetchData() {
 }
 
 fetchData()
+
+const createNewUser = () => {
+    router.push('/userManage/create');
+}
 </script>
   
 <style scoped>
