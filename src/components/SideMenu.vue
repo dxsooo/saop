@@ -4,30 +4,29 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <div class="menu">
-        <el-scrollbar>
-            <el-menu>
-                <el-menu-item index="user">
-                    <RouterLink to="/user">
-                        <span>用户管理</span>
-                    </RouterLink>
-                </el-menu-item>
-                <el-menu-item index="supplier">
-                    <RouterLink to="/supplier">
-                        <span>供应商管理</span>
-                    </RouterLink>
-                </el-menu-item>
-                <el-menu-item index="project">
-                    <RouterLink to="/project">
-                        <span>项目管理</span>
-                    </RouterLink>
-                </el-menu-item>
-                <el-menu-item index="task">
-                    <RouterLink to="/task">
-                        <span>任务管理</span>
-                    </RouterLink>
-                </el-menu-item>
-            </el-menu>
-        </el-scrollbar>
+        <el-menu>
+            <h2>数据标注运营平台</h2>
+            <el-menu-item index="user">
+                <RouterLink to="/user">
+                    用户管理
+                </RouterLink>
+            </el-menu-item>
+            <el-menu-item index="supplier">
+                <RouterLink to="/supplier">
+                    供应商管理
+                </RouterLink>
+            </el-menu-item>
+            <el-menu-item index="project">
+                <RouterLink to="/project">
+                    项目管理
+                </RouterLink>
+            </el-menu-item>
+            <el-menu-item index="task">
+                <RouterLink to="/task">
+                    任务管理
+                </RouterLink>
+            </el-menu-item>
+        </el-menu>
     </div>
 </template>
 

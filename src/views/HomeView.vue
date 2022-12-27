@@ -4,7 +4,7 @@ import { Setting } from '@element-plus/icons-vue'
 </script>
 
 <template>
-  <el-container class="layout-container-demo" style="height: 100%">
+  <el-container class="layout" style="height: 100%">
     <el-aside width="200px">
       <SideMenu />
     </el-aside>
@@ -36,26 +36,26 @@ import { Setting } from '@element-plus/icons-vue'
 </template>
 
 <style scoped>
-.layout-container-demo .el-header {
+.layout .el-header {
   position: relative;
   background-color: var(--el-color-primary-light-7);
   color: var(--el-text-color-primary);
 }
 
-.layout-container-demo .el-aside {
+.layout .el-aside {
   color: var(--el-text-color-primary);
   background: var(--el-color-primary-light-8);
 }
 
-.layout-container-demo .el-menu {
+.layout .el-menu {
   border-right: none;
 }
 
-.layout-container-demo .el-main {
+.layout .el-main {
   padding: 0;
 }
 
-.layout-container-demo .toolbar {
+.layout .toolbar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
