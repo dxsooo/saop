@@ -12,6 +12,34 @@ Mock.mock('/api/login', {
     }
 })
 
+Mock.mock('/api/user', 'get', {
+    code: 0,
+    message: 'ok',
+    data:
+        { id: 1, username: 'admin', is_admin: true }
+})
+
+// Mock.mock('/api/user', 'get', {
+//     code: 0,
+//     message: 'ok',
+//     data:
+//         { id: 1, username: 'John', enable: true, role_name: '系统运营', role_id: 1, is_admin: false }
+// })
+
+// Mock.mock('/api/user', 'get', {
+//     code: 0,
+//     message: 'ok',
+//     data:
+//         { id: 1, username: 'John', enable: true, role_name: '系统运营', role_id: 4, is_admin: false }
+// })
+
+Mock.mock('/api/users/:id', 'GET', {
+    code: 0,
+    message: 'ok',
+    data:
+        { id: 1, username: 'John', enable: true, role_name: '系统运营', role_id: 1 }
+})
+
 Mock.mock('/api/users', {
     code: 0,
     message: 'ok',

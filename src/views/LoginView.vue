@@ -19,15 +19,25 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { login } from '@/api/login'
+import { useRouter } from 'vue-router'
+import { get_current_user_info } from '@/api/user';
 
 const loginForm = reactive({
     account: '',
     password: '',
 })
+const router = useRouter()
 
 const onSubmit = async () => {
     console.log('submit!')
     await login(loginForm)
+    // goto different page for role
+    const res = await get_current_user_info()
+    if (res.data.data.is_admin || res.data.data.role_id < 4) {
+        router.push('/user');
+    } else {
+        router.push('/task')
+    }
 }
 </script>
 
