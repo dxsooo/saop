@@ -45,11 +45,11 @@ Mock.mock('/api/users', {
     message: 'ok',
     data: {
         items: [
-            { id: 1, username: 'John', enable: true, role_name: '系统运营', role_id: 1 },
-            { id: 2, username: 'Tom', enable: true, role_name: '标注员', role_id: 5 },
-            { id: 3, username: 'Mary', enable: false, role_name: '审核员', role_id: 4 },
-            { id: 4, username: 'Lucy', enable: false, role_name: '供应商运营', role_id: 3 },
-            { id: 5, username: 'Chris', enable: false, role_name: '业务运营', role_id: 2 }
+            { id: 1, account: 'John', username: 'John', enable: true, role_name: '系统运营', role_id: 1 },
+            { id: 2, account: 'Tom', username: 'Tom', enable: true, role_name: '标注员', role_id: 5 },
+            { id: 3, account: 'Mary', username: 'Mary', enable: false, role_name: '审核员', role_id: 4 },
+            { id: 4, account: 'Lucy', username: 'Lucy', enable: false, role_name: '供应商运营', role_id: 3 },
+            { id: 5, account: 'Chris', username: 'Chris', enable: false, role_name: '业务运营', role_id: 2 }
         ]
     }
 })
