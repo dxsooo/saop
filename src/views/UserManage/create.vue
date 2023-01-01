@@ -3,7 +3,7 @@
         <el-form-item label="帐号" prop="account">
             <el-input v-model="form.account" placeholder="帐号" />
         </el-form-item>
-        <el-form-item label="用户名">
+        <el-form-item label="用户名" prop="username">
             <el-input v-model="form.username" placeholder="用户名，留空即和帐号一致" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
@@ -45,6 +45,9 @@ const form = reactive({
 const rules = reactive<FormRules>({
     account: [
         { required: true, message: '输入帐号', trigger: 'blur' },
+        { min: 3, message: '长度至少为3', trigger: 'blur' },
+    ],
+    username: [
         { min: 3, message: '长度至少为3', trigger: 'blur' },
     ],
     password: [
