@@ -33,6 +33,7 @@
 import { ref } from 'vue'
 import { get_user_list, reset_password, disable_user, enable_user } from '@/api/user'
 import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
 
 
 const tableData = ref(null)
@@ -61,14 +62,38 @@ const goEdit = (data: any) => {
 }
 
 const resetPassword = async (data: any) => {
-    await reset_password(data.id)
+    const resp = await reset_password(data.id)
+    // console.log(resp.data)
+    if (resp.data.code == 0) {
+        ElNotification({
+            title: '成功',
+            message: '已重置',
+            type: 'success',
+        })
+    }
 }
 
 const setEnable = async (data: any, value: Boolean) => {
     if (value === true) {
-        await enable_user(data.id)
+        enable_user(data.id).then((resp) => {
+            if (resp.data.code == 0) {
+                ElNotification({
+                    title: '成功',
+                    message: '已启用',
+                    type: 'success',
+                })
+            }
+        })
     } else {
-        await disable_user(data.id)
+        disable_user(data.id).then((resp) => {
+            if (resp.data.code == 0) {
+                ElNotification({
+                    title: '成功',
+                    message: '已禁用',
+                    type: 'success',
+                })
+            }
+        })
     }
 }
 </script>

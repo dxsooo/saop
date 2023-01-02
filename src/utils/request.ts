@@ -11,7 +11,7 @@ const req = Axios.create({
 // 请求时 如果有token， 自动添加到请求头，响应时自动存储token 
 req.interceptors.response.use((response: any) => {
     // response:{ data,config:{ headers }  }
-    if (response.data.data.token) {
+    if (response.data.data !== undefined && response.data.data.token) {
         // 保存到本地存储: sessionStorage, localStorage
         sessionStorage.setItem('token', response.data.data.token)
     }

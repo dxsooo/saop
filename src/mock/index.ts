@@ -54,12 +54,12 @@ Mock.mock('/api/users', {
     }
 })
 
-Mock.mock('/api/users/:id', 'post', {
+Mock.mock(/\/api\/users\/\d+$/, 'post', {
     code: 0,
     message: 'ok'
 })
 
-Mock.mock('/api/users/:id/password', 'post', {
+Mock.mock(/\/api\/users\/\d+\/password/, 'post', {
     code: 0,
     message: 'ok'
 })

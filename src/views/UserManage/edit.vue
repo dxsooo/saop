@@ -15,6 +15,7 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { update_user } from '@/api/user'
+import { ElNotification } from 'element-plus'
 
 // do not use same name with ref
 const formRef = ref<FormInstance>()
@@ -34,6 +35,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         if (valid) {
             console.log('submit!')
             update_user(1, formEl)
+            ElNotification({
+                title: '成功',
+                message: '已修改',
+                type: 'success',
+            })
             returnPage()
         } else {
             console.log('error submit!', fields)
