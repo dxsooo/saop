@@ -14,6 +14,7 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { update_user } from '@/api/user'
 
 // do not use same name with ref
 const formRef = ref<FormInstance>()
@@ -32,6 +33,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl.validate((valid, fields) => {
         if (valid) {
             console.log('submit!')
+            update_user(1, formEl)
             returnPage()
         } else {
             console.log('error submit!', fields)

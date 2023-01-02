@@ -31,7 +31,7 @@
   
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { get_user_list } from '@/api/user'
+import { get_user_list, reset_password, disable_user, enable_user } from '@/api/user'
 import { useRouter } from 'vue-router'
 
 
@@ -60,9 +60,16 @@ const goEdit = (data: any) => {
     router.push('/userManage/edit/' + data.id);
 }
 
-const resetPassword = (data: any) => {
+const resetPassword = async (data: any) => {
+    await reset_password(data.id)
 }
-const setEnable = (data: any, value: Boolean) => {
+
+const setEnable = async (data: any, value: Boolean) => {
+    if (value === true) {
+        await enable_user(data.id)
+    } else {
+        await disable_user(data.id)
+    }
 }
 </script>
   

@@ -54,6 +54,16 @@ Mock.mock('/api/users', {
     }
 })
 
+Mock.mock('/api/users/:id', 'post', {
+    code: 0,
+    message: 'ok'
+})
+
+Mock.mock('/api/users/:id/password', 'post', {
+    code: 0,
+    message: 'ok'
+})
+
 Mock.mock('/api/suppliers', {
     code: 0,
     message: 'ok',
