@@ -1,7 +1,7 @@
-import req from '@/utils/request'
+import request from '@/utils/request'
 
 export const login = (data: any) => {
-    return req({
+    return request({
         url: '/login',
         method: 'post',
         data
