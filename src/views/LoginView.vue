@@ -1,12 +1,18 @@
 <template>
     <div class="login-container">
-        <el-form class="login-form" :model="loginForm" :rules="rules" ref="formRef" label-width="60px"
-            label-position="left">
-            <el-form-item label="帐号" prop="account">
-                <el-input v-model="loginForm.account" name="account" type="text" tabindex="1" autocomplete="on" />
+        <el-form class="login-form" :model="loginForm" :rules="rules" ref="formRef">
+            <el-form-item prop="account">
+                <div class="svg-container">
+                    <UserFilled />
+                </div>
+                <el-input v-model="loginForm.account" name="account" placeholder="帐号" type="text" tabindex="1"
+                    autocomplete="on" />
             </el-form-item>
-            <el-form-item label="密码" prop="password">
-                <el-input v-model="loginForm.password" name="password" type="password" tabindex="2"
+            <el-form-item prop="password">
+                <div class="svg-container">
+                    <Key />
+                </div>
+                <el-input v-model="loginForm.password" name="password" placeholder="密码" type="password" tabindex="2"
                     autocomplete="off" />
             </el-form-item>
             <el-button type="primary" @click="submitForm(formRef)" style="width:100%; margin-bottom:30px;">
@@ -27,7 +33,7 @@ import { ElNotification } from 'element-plus'
 
 const rules = reactive<FormRules>({
     account: [
-        { required: true, message: '必须输入用户名', trigger: 'blur' },
+        { required: true, message: '必须输入帐号', trigger: 'blur' },
     ],
     password: [
         { required: true, message: '必须输入密码', trigger: 'blur' },
@@ -70,7 +76,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login-container {
     height: 100%;
     width: 100%;
@@ -86,8 +92,33 @@ const submitForm = (formEl: FormInstance | undefined) => {
         overflow: hidden;
     }
 
-    .el-form-item__label {
-        color: #fff;
+    .el-form-item {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #fff;
+        border-radius: 5px;
+        color: #454545;
+    }
+
+    .el-input {
+        display: flex;
+        width: 95%;
+        border: 0px;
+
+        :deep(.el-input__wrapper) {
+            box-shadow: 0 0 0 0px;
+            background: transparent;
+        }
+    }
+
+    .svg-container {
+        width: 5%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        svg {
+            padding-left: 2px;
+        }
     }
 }
 </style>
