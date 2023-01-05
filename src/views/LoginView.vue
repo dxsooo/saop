@@ -9,11 +9,15 @@
                     autocomplete="on" />
             </el-form-item>
             <el-form-item prop="password">
-                <div class="svg-container">
+                <span class="svg-container">
                     <Key />
-                </div>
-                <el-input v-model="loginForm.password" name="password" placeholder="密码" type="password" tabindex="2"
-                    autocomplete="off" />
+                </span>
+                <el-input v-model="loginForm.password" name="password" placeholder="密码"
+                    :type="passwordHide ? 'password' : ''" tabindex="2" autocomplete="off" />
+                <span class="show-pwd" @click="showPwd">
+                    <Hide v-if="passwordHide" />
+                    <View v-else />
+                </span>
             </el-form-item>
             <el-button type="primary" @click="submitForm(formRef)" style="width:100%; margin-bottom:30px;">
                 登录
@@ -29,6 +33,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { get_current_user_info } from '@/api/user';
 import { ElNotification } from 'element-plus'
+import { View } from '@element-plus/icons-vue';
 
 
 const rules = reactive<FormRules>({
@@ -46,6 +51,11 @@ const loginForm = reactive({
     password: '',
 })
 const router = useRouter()
+
+const passwordHide = ref(true)
+const showPwd = () => {
+    passwordHide.value = !passwordHide.value
+}
 
 const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
@@ -101,7 +111,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 
     .el-input {
         display: flex;
-        width: 95%;
+        width: 85%;
         border: 0px;
 
         :deep(.el-input__wrapper) {
@@ -111,7 +121,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     }
 
     .svg-container {
-        width: 5%;
+        width: 20px;
         height: 100%;
         display: flex;
         align-items: center;
@@ -119,6 +129,13 @@ const submitForm = (formEl: FormInstance | undefined) => {
         svg {
             padding-left: 2px;
         }
+    }
+
+    .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        width: 20px;
     }
 }
 </style>
