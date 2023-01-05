@@ -28,7 +28,7 @@
         </el-table-column>
     </el-table>
 </template>
-  
+
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { get_user_list, reset_password, disable_user, enable_user } from '@/api/user'
@@ -97,11 +97,10 @@ const setEnable = async (data: any, value: Boolean) => {
     }
 }
 </script>
-  
+
 <style scoped>
 .operationBar {
     display: flex;
     justify-content: right;
 }
 </style>
-  

@@ -2,9 +2,9 @@
     <div class="login-container">
         <el-form class="login-form" :model="loginForm" :rules="rules" ref="formRef">
             <el-form-item prop="account">
-                <div class="svg-container">
+                <span class="svg-container">
                     <UserFilled />
-                </div>
+                </span>
                 <el-input v-model="loginForm.account" name="account" placeholder="帐号" type="text" tabindex="1"
                     autocomplete="on" />
             </el-form-item>
@@ -61,13 +61,13 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate(async (valid, fields) => {
         if (valid) {
-            let res = await login(loginForm)
+            let res = await login(formEl)
             // todo: 使用统一拦截器检查code？
             if (res.data.code == 0) {
                 // success, goto different page for role
                 res = await get_current_user_info()
                 if (res.data.data.is_admin || res.data.data.role_id < 4) {
-                    router.push({ name: 'userManage' });
+                    router.push({ name: 'UserManage' });
                 } else {
                     router.push('/task')
                 }

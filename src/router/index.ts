@@ -8,28 +8,28 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       redirect: '/userManage',
     },
     {
       path: '/userManage',
-      name: 'userManage',
+      name: 'UserManage',
       component: Layout,
       children: [
         {
           path: '',
           name: 'ListUser',
-          component: () => import('../views/UserManage/list.vue')
+          component: () => import('../views/UserManage/List.vue')
         },
         {
           path: 'create',
           name: 'CreateUser',
-          component: () => import('../views/UserManage/create.vue')
+          component: () => import('../views/UserManage/Create.vue')
         },
         {
           path: 'edit/:id(\\d+)',
           name: 'EditUser',
-          component: () => import('../views/UserManage/edit.vue')
+          component: () => import('../views/UserManage/Edit.vue')
         },
         {
           path: '/supplier',
@@ -58,7 +58,7 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: () => import('../views/LoginView.vue')
     }
   ]
@@ -80,12 +80,12 @@ router.beforeEach(async (to, from) => {
     // 检查用户是否已登录
     !checkLogin() &&
     // 避免无限重定向
-    to.name !== 'login'
+    to.name !== 'Login'
   ) {
     // 将用户重定向到登录页面
-    return { name: 'login' }
+    return { name: 'Login' }
   }
-  if (to.name !== 'login') {
+  if (to.name !== 'Login') {
     // 每次路由变更检查帐号有效性
     console.log('change router')
     await get_current_user_info()
@@ -95,7 +95,7 @@ router.beforeEach(async (to, from) => {
         message: '帐号已禁用',
         type: 'error',
       })
-      return { name: 'login' }
+      return { name: 'Login' }
     }
   }
 })
