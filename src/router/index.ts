@@ -101,12 +101,13 @@ router.beforeEach(async (to, from) => {
     }
     // 更新到store
     const store = useUserStore()
-    store.id = res.data.data.id
-    store.username = res.data.data.username
-    store.role_name = res.data.data.role_name
-    store.role_id = res.data.data.role_id
-    store.is_admin = res.data.data.is_admin
-
+    store.$patch({
+      id: res.data.data.id,
+      username: res.data.data.username,
+      role_name: res.data.data.role_name,
+      role_id: res.data.data.role_id,
+      is_admin: res.data.data.is_admin,
+    })
     if (to.name == 'Home') {
       // 标注审核员首页是 task
       if (store.role_id >= 4) {

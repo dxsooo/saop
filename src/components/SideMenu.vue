@@ -1,8 +1,11 @@
 <template>
     <div class="menu">
         <h2>数据标注运营平台</h2>
-        <el-menu router v-if="loaded">
+        <el-menu router>
             <el-menu-item v-if="isAllowUserManage()" index="/userManage">
+                <el-icon>
+                    <User />
+                </el-icon>
                 用户管理
             </el-menu-item>
             <el-menu-item v-if="isAllowSupplierManage()" index="/supplier">
@@ -19,42 +22,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { get_current_user_info } from '@/api/user';
+import { useUserStore } from '@/store/user';
+import { storeToRefs } from 'pinia';
 
-const role = ref(null)
-const is_admin = ref(false)
-const loaded = ref(false)
-
-onMounted(() => {
-    get_current_user_info().then(res => {
-        role.value = res.data.data.role_id
-        is_admin.value = res.data.data.is_admin
-        loaded.value = true
-    })
-})
-
+const store = useUserStore()
+const { role_id, is_admin } = storeToRefs(store);
 
 const isAllowUserManage = () => {
-    return is_admin.value || Number(role.value) < 4
+    return is_admin || Number(role_id) < 4
 }
 
 const isAllowSupplierManage = () => {
-    return !is_admin.value && Number(role.value) < 3
+    return !is_admin && Number(role_id) < 4
 }
 
 const isAllowProjectManage = () => {
-    return !is_admin.value && Number(role.value) < 3
+    return !is_admin && Number(role_id) < 4
 }
 
 const isAllowTaskManage = () => {
-    return !is_admin.value
+    return !is_admin
 }
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .menu {
     border-right: none;
+    color: #fff;
+
+    h2 {
+        // color: #fff;
+        text-align: center;
+        margin: 12px auto;
+    }
+
+    .el-menu {
+        background-color: #1f2d3d;
+
+        .el-menu-item {
+            color: #fff;
+
+            &:hover {
+                background-color: #001528;
+            }
+        }
+    }
+
 }
 </style>

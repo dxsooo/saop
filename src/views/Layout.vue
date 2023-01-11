@@ -40,17 +40,17 @@ const { username, role_name } = storeToRefs(store);
 .layout {
   .el-header {
     position: relative;
-    background-color: var(--el-color-primary-light-7);
-    color: var(--el-text-color-primary);
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
   }
 
   .el-aside {
     color: var(--el-text-color-primary);
-    background: var(--el-color-primary-light-8);
+    background: #2d3a4b;
   }
 
   .el-main {
-    padding: 0;
+    padding-top: 10px;
   }
 
   .toolbar {
