@@ -31,8 +31,6 @@ import { reactive, ref } from 'vue'
 import { login } from '@/api/login'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { get_current_user_info } from '@/api/user';
-import { ElNotification } from 'element-plus'
 import { View } from '@element-plus/icons-vue';
 
 

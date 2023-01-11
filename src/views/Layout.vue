@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import SideMenu from '../components/SideMenu.vue'
-import { Setting } from '@element-plus/icons-vue'
+import { useUserStore } from '@/store/user';
+import { storeToRefs } from 'pinia';
+
+const store = useUserStore()
+const { username, role_name } = storeToRefs(store);
+
 </script>
 
 <template>
@@ -13,18 +18,14 @@ import { Setting } from '@element-plus/icons-vue'
       <el-header style="text-align: right; font-size: 12px">
         <div class="toolbar">
           <el-dropdown>
-            <el-icon style="margin-right: 8px; margin-top: 1px">
-              <setting />
-            </el-icon>
+            <span>{{ username }} ({{ role_name }})</span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>View</el-dropdown-item>
-                <el-dropdown-item>Add</el-dropdown-item>
-                <el-dropdown-item>Delete</el-dropdown-item>
+                <el-dropdown-item>个人中心</el-dropdown-item>
+                <el-dropdown-item>登出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span>Tom</span>
         </div>
       </el-header>
 
@@ -35,32 +36,29 @@ import { Setting } from '@element-plus/icons-vue'
   </el-container>
 </template>
 
-<style scoped>
-.layout .el-header {
-  position: relative;
-  background-color: var(--el-color-primary-light-7);
-  color: var(--el-text-color-primary);
-}
+<style lang="scss" scoped>
+.layout {
+  .el-header {
+    position: relative;
+    background-color: var(--el-color-primary-light-7);
+    color: var(--el-text-color-primary);
+  }
 
-.layout .el-aside {
-  color: var(--el-text-color-primary);
-  background: var(--el-color-primary-light-8);
-}
+  .el-aside {
+    color: var(--el-text-color-primary);
+    background: var(--el-color-primary-light-8);
+  }
 
-.layout .el-menu {
-  border-right: none;
-}
+  .el-main {
+    padding: 0;
+  }
 
-.layout .el-main {
-  padding: 0;
-}
-
-.layout .toolbar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  right: 20px;
+  .toolbar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    right: 20px;
+  }
 }
 </style>
-  
