@@ -9,12 +9,21 @@
                 用户管理
             </el-menu-item>
             <el-menu-item v-if="isAllowSupplierManage()" index="/supplier">
+                <el-icon>
+                    <Shop />
+                </el-icon>
                 供应商管理
             </el-menu-item>
             <el-menu-item v-if="isAllowProjectManage()" index="/project">
+                <el-icon>
+                    <Notebook />
+                </el-icon>
                 项目管理
             </el-menu-item>
             <el-menu-item v-if="isAllowTaskManage()" index="/task">
+                <el-icon>
+                    <Document />
+                </el-icon>
                 任务管理
             </el-menu-item>
         </el-menu>
@@ -23,25 +32,23 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user';
-import { storeToRefs } from 'pinia';
 
 const store = useUserStore()
-const { role_id, is_admin } = storeToRefs(store);
 
 const isAllowUserManage = () => {
-    return is_admin || Number(role_id) < 4
+    return store.is_admin || Number(store.role_id) < 4
 }
 
 const isAllowSupplierManage = () => {
-    return !is_admin && Number(role_id) < 4
+    return !store.is_admin && Number(store.role_id) < 4
 }
 
 const isAllowProjectManage = () => {
-    return !is_admin && Number(role_id) < 4
+    return !store.is_admin && Number(store.role_id) < 4
 }
 
 const isAllowTaskManage = () => {
-    return !is_admin
+    return !store.is_admin
 }
 
 </script>

@@ -28,8 +28,15 @@ Mock.mock('/api/user', 'get', {
     code: 0,
     message: 'ok',
     data:
-        { id: 1, username: 'John', enable: true, role_name: '系统运营', role_id: 1, is_admin: false }
+        { id: 1, username: 'John', enable: true, role_name: '管理员', is_admin: true }
 })
+
+// Mock.mock('/api/user', 'get', {
+//     code: 0,
+//     message: 'ok',
+//     data:
+//         { id: 2, username: 'Lucy', enable: true, role_name: '系统运营', role_id: 1, is_admin: false }
+// })
 
 // Mock.mock('/api/user', 'get', {
 //     code: 0,
