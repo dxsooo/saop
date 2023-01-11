@@ -30,21 +30,25 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { get_user_list, reset_password, disable_user, enable_user } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
-
 
 const tableData = ref(null)
 const router = useRouter()
 
 async function fetchData() {
     const res = await get_user_list(null)
+    console.log('fetch called')
     tableData.value = res.data.data.items
 }
 
-fetchData()
+// const mounted = () => {
+//     fetchData()
+// }
+
+onMounted(() => { fetchData() })
 
 const createNewUser = () => {
     router.push('/userManage/create');

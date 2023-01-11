@@ -62,22 +62,29 @@ const submitForm = (formEl: FormInstance | undefined) => {
     formEl.validate(async (valid, fields) => {
         if (valid) {
             let res = await login(formEl)
-            // todo: 使用统一拦截器检查code？
-            if (res.data.code == 0) {
-                // success, goto different page for role
-                res = await get_current_user_info()
-                if (res.data.data.is_admin || res.data.data.role_id < 4) {
-                    router.push({ name: 'UserManage' });
-                } else {
-                    router.push('/task')
-                }
-            } else {
-                ElNotification({
-                    title: '登录失败',
-                    message: res.data.message,
-                    type: 'error',
-                })
+            // todo: 使用统一拦截器检查code
+            // if (res.data.code == 0) {
+            if (res.data.data.token) {
+                // 保存到本地存储: sessionStorage
+                sessionStorage.setItem('token', res.data.data.token)
             }
+            router.push({ name: 'Home' });
+            // success, goto different page for role
+            // res = await get_current_user_info()
+            // if (res.data.data.is_admin || res.data.data.role_id < 4) {
+            //     router.push({ name: 'Home' });
+            // }
+            // else {
+            //     router.push('/task')
+            // }
+
+            // } else {
+            //     ElNotification({
+            //         title: '登录失败',
+            //         message: res.data.message,
+            //         type: 'error',
+            //     })
+            // }
 
         } else {
             console.log('error submit!', fields)

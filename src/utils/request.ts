@@ -11,19 +11,19 @@ const request = Axios.create({
 // 请求时 如果有token， 自动添加到请求头，响应时自动存储token 
 request.interceptors.response.use((response: any) => {
     // response:{ data,config:{ headers }  }
-    if (response.data.data) {
-        if (response.data.data.token) {
-            // 保存到本地存储: sessionStorage, localStorage
-            sessionStorage.setItem('token', response.data.data.token)
-        }
-        // todo: 按照请求确定？
-        if (response.data.data.enable !== undefined && response.data.data.is_admin !== undefined && response.data.data.role_id !== undefined) {
-            // 保存到本地存储: sessionStorage, localStorage
-            sessionStorage.setItem('is_admin', response.data.data.is_admin)
-            sessionStorage.setItem('enable', response.data.data.enable)
-            sessionStorage.setItem('role_id', response.data.data.role_id)
-        }
-    }
+    // if (response.data.data) {
+    //     if (response.data.data.token) {
+    //         // 保存到本地存储: sessionStorage, localStorage
+    //         sessionStorage.setItem('token', response.data.data.token)
+    //     }
+    //     // todo: 按照请求确定？
+    //     if (response.data.data.enable !== undefined && response.data.data.is_admin !== undefined && response.data.data.role_id !== undefined) {
+    //         // 保存到本地存储: sessionStorage, localStorage
+    //         sessionStorage.setItem('is_admin', response.data.data.is_admin)
+    //         sessionStorage.setItem('enable', response.data.data.enable)
+    //         sessionStorage.setItem('role_id', response.data.data.role_id)
+    //     }
+    // }
     // 处理响应的业务异常
     return response;
 }, (err: any) => {
