@@ -3,21 +3,21 @@
         <el-button type="primary" style="width:100px;" @click="createNewUser()">
             新建
         </el-button>
-        <el-button type="primary" style="width:100px;">
+        <!-- <el-button type="primary" style="width:100px;">
             批量创建
-        </el-button>
+        </el-button> -->
     </div>
     <el-table :data="tableData">
-        <el-table-column prop="id" label="id" width="140" />
-        <el-table-column prop="account" label="帐号" width="240" />
-        <el-table-column prop="username" label="用户名" width="240" />
-        <el-table-column prop="role_name" label="角色" />
-        <el-table-column label="状态">
+        <el-table-column prop="id" label="id" width="120" />
+        <el-table-column prop="account" label="帐号" width="200" />
+        <el-table-column prop="username" label="用户名" />
+        <el-table-column prop="role_name" label="角色" width="120" />
+        <el-table-column label="状态" width="120">
             <template #default="scope">
                 {{ transStatus(scope.row.enable) }}
             </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" fixed="right" width="240">
             <template #default="scope">
                 <el-button size="small" @click="goEdit(scope.row)">编辑</el-button>
                 <el-button size="small" @click="resetPassword(scope.row)">重置密码</el-button>
@@ -40,13 +40,8 @@ const router = useRouter()
 
 async function fetchData() {
     const res = await get_user_list(null)
-    console.log('fetch called')
     tableData.value = res.data.data.items
 }
-
-// const mounted = () => {
-//     fetchData()
-// }
 
 onMounted(() => { fetchData() })
 
@@ -102,7 +97,7 @@ const setEnable = async (data: any, value: Boolean) => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .operationBar {
     display: flex;
     justify-content: right;

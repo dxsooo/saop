@@ -8,7 +8,7 @@ Mock.mock('/api/login', {
     code: 0,
     message: 'ok',
     data: {
-        token: '123123123'
+        token: '123123123555'
     }
 })
 

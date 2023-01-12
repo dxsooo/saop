@@ -108,11 +108,13 @@ router.beforeEach(async (to, from) => {
       role_id: res.data.data.role_id,
       is_admin: res.data.data.is_admin,
     })
-    if (to.name == 'Home') {
-      // 标注审核员首页是 task
-      if (store.role_id >= 4) {
+
+    if (store.role_id >= 4) {
+      if (to.name == 'Home') {
+        // 标注审核员首页是 task
         router.push('/taskManage');
       }
+      // TODO: 如果访问越权页面，直接去404
     }
   }
 })
