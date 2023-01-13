@@ -9,7 +9,7 @@
         </el-form-item>
     </el-form>
 </template>
-  
+
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
@@ -25,7 +25,7 @@ const form = reactive({
 
 const rules = reactive<FormRules>({
     username: [
-        { min: 3, message: '长度至少为3', trigger: 'blur' },
+        { min: 3, message: '长度至少为3', trigger: 'blur', required: true },
     ],
 })
 
@@ -52,4 +52,8 @@ const returnPage = () => {
     router.push('/userManage');
 }
 </script>
-  
+
+
+<style lang="scss" scoped>
+
+</style>
