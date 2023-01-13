@@ -34,7 +34,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl.validate((valid, fields) => {
         if (valid) {
             console.log('submit!')
-            update_user(1, formEl)
+            update_user(1, form)
             ElNotification({
                 title: '成功',
                 message: '已修改',

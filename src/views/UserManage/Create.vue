@@ -46,7 +46,7 @@ const form = reactive({
     account: '',
     username: '',
     password: '',
-    role_id: is_admin ? "1" : null,
+    role_id: is_admin.value ? "1" : null,
 })
 
 
@@ -75,7 +75,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl.validate((valid, fields) => {
         if (valid) {
             console.log('submit!')
-            create_user(formEl)
+            create_user(form)
             ElNotification({
                 title: '成功',
                 message: '创建成功',

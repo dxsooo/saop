@@ -1,18 +1,18 @@
 <template>
     <div class="login-container">
-        <el-form class="login-form" :model="loginForm" :rules="rules" ref="formRef">
+        <el-form class="login-form" :model="form" :rules="rules" ref="formRef">
             <el-form-item prop="account">
                 <span class="svg-container">
                     <UserFilled />
                 </span>
-                <el-input v-model="loginForm.account" name="account" placeholder="帐号" type="text" tabindex="1"
+                <el-input v-model="form.account" name="account" placeholder="帐号" type="text" tabindex="1"
                     autocomplete="on" />
             </el-form-item>
             <el-form-item prop="password">
                 <span class="svg-container">
                     <Key />
                 </span>
-                <el-input v-model="loginForm.password" name="password" placeholder="密码"
+                <el-input v-model="form.password" name="password" placeholder="密码"
                     :type="passwordHide ? 'password' : ''" tabindex="2" autocomplete="off" />
                 <span class="show-pwd" @click="showPwd">
                     <Hide v-if="passwordHide" />
@@ -44,7 +44,7 @@ const rules = reactive<FormRules>({
 })
 
 const formRef = ref<FormInstance>()
-const loginForm = reactive({
+const form = reactive({
     account: '',
     password: '',
 })
@@ -59,7 +59,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate(async (valid, fields) => {
         if (valid) {
-            let res = await login(formEl)
+            let res = await login(form)
             // todo: 使用统一拦截器检查code
             // if (res.data.code == 0) {
             if (res.data.data.token) {
