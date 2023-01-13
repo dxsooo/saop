@@ -59,7 +59,7 @@ Mock.mock('/api/users/:id', 'GET', {
         { id: 1, username: 'John', enable: true, role_name: '系统运营', role_id: 1 }
 })
 
-Mock.mock('/api/users', {
+Mock.mock('/api/users', 'get', {
     code: 0,
     message: 'ok',
     data: {
@@ -71,6 +71,13 @@ Mock.mock('/api/users', {
             { id: 5, account: 'Chris', username: 'Chris', enable: false, role_name: '业务运营', role_id: 2 }
         ]
     }
+})
+
+Mock.mock('/api/users', 'post', {
+    code: 0,
+    message: 'ok',
+    data:
+        { id: 100, username: 'John100', enable: true, role_name: '系统运营', role_id: 1 }
 })
 
 Mock.mock(/\/api\/users\/\d+$/, 'post', {

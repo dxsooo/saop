@@ -53,3 +53,11 @@ export const update_user = (id: any, data: any) => {
         data,
     })
 }
+
+export const create_user = (data: any) => {
+    return req({
+        url: '/users',
+        method: 'post',
+        data
+    })
+}

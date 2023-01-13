@@ -14,11 +14,11 @@
         </el-form-item>
         <el-form-item label="角色" prop="role_id">
             <el-radio-group v-model="form.role_id">
-                <el-radio label="系统运营" />
-                <el-radio label="业务运营" />
-                <el-radio label="供应商运营" />
-                <el-radio label="审核员" />
-                <el-radio label="标注员" />
+                <el-radio v-if="is_admin" label="1">系统运营</el-radio>
+                <el-radio v-if="!is_admin && role_id < 2" label="2">业务运营</el-radio>
+                <el-radio v-if="!is_admin && role_id < 3" label="3">供应商运营</el-radio>
+                <el-radio v-if="!is_admin" label="4">审核员</el-radio>
+                <el-radio v-if="!is_admin" label="5">标注员</el-radio>
             </el-radio-group>
         </el-form-item>
         <el-form-item>
@@ -27,11 +27,18 @@
         </el-form-item>
     </el-form>
 </template>
-  
+
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/store/user';
+import { storeToRefs } from 'pinia';
+import { create_user } from '@/api/user';
+import { ElNotification } from 'element-plus'
+
+const store = useUserStore()
+const { is_admin, role_id } = storeToRefs(store)
 
 // do not use same name with ref
 const formRef = ref<FormInstance>()
@@ -39,8 +46,9 @@ const form = reactive({
     account: '',
     username: '',
     password: '',
-    role_id: null,
+    role_id: is_admin ? "1" : null,
 })
+
 
 const rules = reactive<FormRules>({
     account: [
@@ -67,6 +75,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl.validate((valid, fields) => {
         if (valid) {
             console.log('submit!')
+            create_user(formEl)
+            ElNotification({
+                title: '成功',
+                message: '创建成功',
+                type: 'success',
+            })
             returnPage()
         } else {
             console.log('error submit!', fields)
@@ -79,4 +93,3 @@ const returnPage = () => {
     router.push('/userManage');
 }
 </script>
-  
