@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '../views/Layout.vue'
-import { get_current_user_info } from '@/api/user';
+import { get_current_user_info } from '@/api/user'
 import { ElNotification } from 'element-plus'
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,34 +20,34 @@ const router = createRouter({
         {
           path: '',
           name: 'ListUser',
-          component: () => import('../views/UserManage/List.vue')
+          component: () => import('../views/UserManage/ListView.vue'),
         },
         {
           path: 'create',
           name: 'CreateUser',
-          component: () => import('../views/UserManage/Create.vue')
+          component: () => import('../views/UserManage/CreateView.vue'),
         },
         {
           path: 'edit/:id(\\d+)',
           name: 'EditUser',
-          component: () => import('../views/UserManage/Edit.vue')
+          component: () => import('../views/UserManage/EditView.vue'),
         },
         {
           path: '/supplier',
           name: 'supplier',
-          component: () => import('../views/SupplierView.vue')
+          component: () => import('../views/SupplierView.vue'),
         },
         {
           path: '/project',
           name: 'project',
-          component: () => import('../views/ProjectView.vue')
+          component: () => import('../views/ProjectView.vue'),
         },
         {
           path: '/task',
           name: 'task',
-          component: () => import('../views/TaskView.vue')
-        }
-      ]
+          component: () => import('../views/TaskView.vue'),
+        },
+      ],
     },
     {
       path: '/about',
@@ -55,21 +55,20 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/login',
       name: 'Login',
-      component: () => import('../views/LoginView.vue')
-    }
-  ]
+      component: () => import('../views/LoginView.vue'),
+    },
+  ],
 })
-
 
 const checkLogin = () => {
   // 前端验证token有效性
   // 请求后端验证token有效性
-  return window.sessionStorage.getItem('token');
+  return window.sessionStorage.getItem('token')
 }
 
 // const checkEnabled = () => {
@@ -90,14 +89,14 @@ router.beforeEach(async (to, from) => {
   if (to.name !== 'Login') {
     // 每次路由变更检查帐号有效性
     console.log('change router')
-    let res = await get_current_user_info()
+    const res = await get_current_user_info()
     if (res.data.data.enable == false) {
       ElNotification({
         title: '操作失败',
         message: '帐号已禁用',
         type: 'error',
       })
-      router.push({ name: 'Login' });
+      router.push({ name: 'Login' })
     }
     // 更新到store
     const store = useUserStore()
@@ -112,7 +111,7 @@ router.beforeEach(async (to, from) => {
     if (store.role_id >= 4) {
       if (to.name == 'Home') {
         // 标注审核员首页是 task
-        router.push('/taskManage');
+        router.push('/taskManage')
       }
       // TODO: 如果访问越权页面，直接去404
     }
