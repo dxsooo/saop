@@ -1,37 +1,51 @@
 <template>
-    <div class="operationBar">
-        <el-button type="primary" style="width:100px;" @click="createNewUser()">
-            新建
-        </el-button>
-        <!-- <el-button type="primary" style="width:100px;">
+  <div class="operationBar">
+    <el-button type="primary" style="width: 100px" @click="createNewUser()">
+      新建
+    </el-button>
+    <!-- <el-button type="primary" style="width:100px;">
             批量创建
         </el-button> -->
-    </div>
-    <el-table :data="tableData">
-        <el-table-column prop="id" label="id" width="120" />
-        <el-table-column prop="account" label="帐号" width="200" />
-        <el-table-column prop="username" label="用户名" />
-        <el-table-column prop="role_name" label="角色" width="120" />
-        <el-table-column label="状态" width="120">
-            <template #default="scope">
-                {{ transStatus(scope.row.enable) }}
-            </template>
-        </el-table-column>
-        <el-table-column label="操作" fixed="right" width="240">
-            <template #default="scope">
-                <el-button size="small" @click="goEdit(scope.row)">编辑</el-button>
-                <el-button size="small" @click="resetPassword(scope.row)">重置密码</el-button>
-                <el-button v-if="scope.row.enable" size="small" type="danger"
-                    @click="setEnable(scope.row, false)">禁用</el-button>
-                <el-button v-else size="small" @click="setEnable(scope.row, true)">启用</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+  </div>
+  <el-table :data="tableData">
+    <el-table-column prop="id" label="id" width="120" />
+    <el-table-column prop="account" label="帐号" width="200" />
+    <el-table-column prop="username" label="用户名" />
+    <el-table-column prop="role_name" label="角色" width="120" />
+    <el-table-column label="状态" width="120">
+      <template #default="scope">
+        {{ transStatus(scope.row.enable) }}
+      </template>
+    </el-table-column>
+    <el-table-column label="操作" fixed="right" width="240">
+      <template #default="scope">
+        <el-button size="small" @click="goEdit(scope.row)">编辑</el-button>
+        <el-button size="small" @click="resetPassword(scope.row)"
+          >重置密码</el-button
+        >
+        <el-button
+          v-if="scope.row.enable"
+          size="small"
+          type="danger"
+          @click="setEnable(scope.row, false)"
+          >禁用</el-button
+        >
+        <el-button v-else size="small" @click="setEnable(scope.row, true)"
+          >启用</el-button
+        >
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { get_user_list, reset_password, disable_user, enable_user } from '@/api/user'
+import {
+  get_user_list,
+  reset_password,
+  disable_user,
+  enable_user,
+} from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 
@@ -39,67 +53,69 @@ const tableData = ref(null)
 const router = useRouter()
 
 async function fetchData() {
-    const res = await get_user_list(null)
-    tableData.value = res.data.data.items
+  const res = await get_user_list(null)
+  tableData.value = res.data.data.items
 }
 
-onMounted(() => { fetchData() })
+onMounted(() => {
+  fetchData()
+})
 
 const createNewUser = () => {
-    router.push('/userManage/create');
+  router.push('/userManage/create')
 }
 
 const transStatus = (data: Boolean) => {
-    if (data === true) {
-        return '已启用'
-    }
-    return '已禁用'
+  if (data === true) {
+    return '已启用'
+  }
+  return '已禁用'
 }
 
 const goEdit = (data: any) => {
-    router.push('/userManage/edit/' + data.id);
+  router.push('/userManage/edit/' + data.id)
 }
 
 const resetPassword = async (data: any) => {
-    const resp = await reset_password(data.id)
-    // console.log(resp.data)
-    if (resp.data.code == 0) {
-        ElNotification({
-            title: '成功',
-            message: '已重置',
-            type: 'success',
-        })
-    }
+  const resp = await reset_password(data.id)
+  // console.log(resp.data)
+  if (resp.data.code == 0) {
+    ElNotification({
+      title: '成功',
+      message: '已重置',
+      type: 'success',
+    })
+  }
 }
 
 const setEnable = async (data: any, value: Boolean) => {
-    if (value === true) {
-        enable_user(data.id).then((resp) => {
-            if (resp.data.code == 0) {
-                ElNotification({
-                    title: '成功',
-                    message: '已启用',
-                    type: 'success',
-                })
-            }
+  if (value === true) {
+    enable_user(data.id).then((resp) => {
+      if (resp.data.code == 0) {
+        ElNotification({
+          title: '成功',
+          message: '已启用',
+          type: 'success',
         })
-    } else {
-        disable_user(data.id).then((resp) => {
-            if (resp.data.code == 0) {
-                ElNotification({
-                    title: '成功',
-                    message: '已禁用',
-                    type: 'success',
-                })
-            }
+      }
+    })
+  } else {
+    disable_user(data.id).then((resp) => {
+      if (resp.data.code == 0) {
+        ElNotification({
+          title: '成功',
+          message: '已禁用',
+          type: 'success',
         })
-    }
+      }
+    })
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .operationBar {
-    display: flex;
-    justify-content: right;
+  display: flex;
+  justify-content: right;
 }
 </style>

@@ -20,17 +20,17 @@ const router = createRouter({
         {
           path: '',
           name: 'ListUser',
-          component: () => import('../views/UserManage/ListView.vue'),
+          component: () => import('../views/UserManage/List.vue'),
         },
         {
           path: 'create',
           name: 'CreateUser',
-          component: () => import('../views/UserManage/CreateView.vue'),
+          component: () => import('../views/UserManage/Create.vue'),
         },
         {
           path: 'edit/:id(\\d+)',
           name: 'EditUser',
-          component: () => import('../views/UserManage/EditView.vue'),
+          component: () => import('../views/UserManage/Edit.vue'),
         },
         {
           path: '/supplier',

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import SideMenu from '../components/SideMenu.vue'
-import { useUserStore } from '@/store/user';
-import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/store/user'
+import { storeToRefs } from 'pinia'
 
 const store = useUserStore()
-const { username, role_name } = storeToRefs(store);
-
+const { username, role_name } = storeToRefs(store)
 </script>
 
 <template>
