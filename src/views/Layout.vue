@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SideMenu from '../components/SideMenu.vue'
+import SideMenu from '@/components/SideMenu.vue'
 import { useUserStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 

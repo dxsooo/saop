@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '../views/Layout.vue'
+import Layout from '@/views/Layout.vue'
 import { get_current_user_info } from '@/api/user'
 import { ElNotification } from 'element-plus'
 import { useUserStore } from '@/store/user'
