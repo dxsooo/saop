@@ -45,9 +45,11 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { login } from '@/api/login'
+import type { LoginParam } from '@/api/login'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { View } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
 const rules = reactive<FormRules>({
   account: [{ required: true, message: '必须输入帐号', trigger: 'blur' }],
@@ -55,10 +57,7 @@ const rules = reactive<FormRules>({
 })
 
 const formRef = ref<FormInstance>()
-const form = reactive({
-  account: '',
-  password: '',
-})
+const form = reactive<LoginParam>({ account: '', password: '' })
 const router = useRouter()
 
 const passwordHide = ref(true)
@@ -70,14 +69,16 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid, fields) => {
     if (valid) {
-      let res = await login(form)
-      // todo: 使用统一拦截器检查code
-      // if (res.data.code == 0) {
-      if (res.data.data.token) {
+      const res = await login(form)
+      // console.log(data)
+      if (res.code == 0) {
         // 保存到本地存储: sessionStorage
-        sessionStorage.setItem('token', res.data.data.token)
+        sessionStorage.setItem('token', res.data.token)
+        router.push({ name: 'Home' })
+      } else {
+        ElMessage.error(res.message)
       }
-      router.push({ name: 'Home' })
+
       // success, goto different page for role
       // res = await get_current_user_info()
       // if (res.data.data.is_admin || res.data.data.role_id < 4) {
@@ -85,14 +86,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
       // }
       // else {
       //     router.push('/task')
-      // }
-
-      // } else {
-      //     ElNotification({
-      //         title: '登录失败',
-      //         message: res.data.message,
-      //         type: 'error',
-      //     })
       // }
     } else {
       console.log('error submit!', fields)

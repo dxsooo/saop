@@ -13,6 +13,11 @@ Mock.mock('/api/login', {
 })
 
 // Mock.mock('/api/login', {
+//   code: 1000,
+//   message: '用户不存在',
+// })
+
+// Mock.mock('/api/login', {
 //     code: 10,
 //     message: '密码错误'
 // })

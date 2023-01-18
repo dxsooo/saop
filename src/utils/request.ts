@@ -25,8 +25,8 @@ request.interceptors.response.use(
     //         sessionStorage.setItem('role_id', response.data.data.role_id)
     //     }
     // }
-    // 处理响应的业务异常
-    return response
+    // 不处理响应的业务异常，由发起请求的页面处理
+    return response.data
   },
   (err: any) => {
     // 4xx 5xx异常

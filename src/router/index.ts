@@ -90,7 +90,7 @@ router.beforeEach(async (to, from) => {
     // 每次路由变更检查帐号有效性
     console.log('change router')
     const res = await get_current_user_info()
-    if (res.data.data.enable == false) {
+    if (res.data.enable == false) {
       ElNotification({
         title: '操作失败',
         message: '帐号已禁用',
@@ -101,11 +101,11 @@ router.beforeEach(async (to, from) => {
     // 更新到store
     const store = useUserStore()
     store.$patch({
-      id: res.data.data.id,
-      username: res.data.data.username,
-      role_name: res.data.data.role_name,
-      role_id: res.data.data.role_id,
-      is_admin: res.data.data.is_admin,
+      id: res.data.id,
+      username: res.data.username,
+      role_name: res.data.role_name,
+      role_id: res.data.role_id,
+      is_admin: res.data.is_admin,
     })
 
     if (store.role_id >= 4) {
