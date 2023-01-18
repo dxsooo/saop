@@ -20,7 +20,7 @@
     <el-table-column label="操作" fixed="right" width="240">
       <template #default="scope">
         <el-button size="small" @click="goEdit(scope.row)">编辑</el-button>
-        <el-button size="small" @click="resetPassword(scope.row)"
+        <el-button size="small" @click="resetPwd(scope.row)"
           >重置密码</el-button
         >
         <el-button
@@ -40,12 +40,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import {
-  get_user_list,
-  reset_password,
-  disable_user,
-  enable_user,
-} from '@/api/user'
+import { getUsers, resetPassword, disableUser, enableUser } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 
@@ -53,8 +48,8 @@ const tableData = ref(null)
 const router = useRouter()
 
 async function fetchData() {
-  const res = await get_user_list(null)
-  tableData.value = res.data.data.items
+  const res = await getUsers(null)
+  tableData.value = res.data.items
 }
 
 onMounted(() => {
@@ -76,10 +71,10 @@ const goEdit = (data: any) => {
   router.push('/userManage/edit/' + data.id)
 }
 
-const resetPassword = async (data: any) => {
-  const resp = await reset_password(data.id)
+const resetPwd = async (data: any) => {
+  const res = await resetPassword(data.id)
   // console.log(resp.data)
-  if (resp.data.code == 0) {
+  if (res.code == 0) {
     ElNotification({
       title: '成功',
       message: '已重置',
@@ -90,25 +85,23 @@ const resetPassword = async (data: any) => {
 
 const setEnable = async (data: any, value: Boolean) => {
   if (value === true) {
-    enable_user(data.id).then((resp) => {
-      if (resp.data.code == 0) {
-        ElNotification({
-          title: '成功',
-          message: '已启用',
-          type: 'success',
-        })
-      }
-    })
+    const res = await enableUser(data.id)
+    if (res.code == 0) {
+      ElNotification({
+        title: '成功',
+        message: '已启用',
+        type: 'success',
+      })
+    }
   } else {
-    disable_user(data.id).then((resp) => {
-      if (resp.data.code == 0) {
-        ElNotification({
-          title: '成功',
-          message: '已禁用',
-          type: 'success',
-        })
-      }
-    })
+    const res = await disableUser(data.id)
+    if (res.code == 0) {
+      ElNotification({
+        title: '成功',
+        message: '已启用',
+        type: 'success',
+      })
+    }
   }
 }
 </script>

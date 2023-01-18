@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/views/Layout.vue'
-import { get_current_user_info } from '@/api/user'
+import { getCurrentUserInfo } from '@/api/user'
 import { ElNotification } from 'element-plus'
 import { useUserStore } from '@/store/user'
 
@@ -89,7 +89,7 @@ router.beforeEach(async (to, from) => {
   if (to.name !== 'Login') {
     // 每次路由变更检查帐号有效性
     console.log('change router')
-    const res = await get_current_user_info()
+    const res = await getCurrentUserInfo()
     if (res.data.enable == false) {
       ElNotification({
         title: '操作失败',
