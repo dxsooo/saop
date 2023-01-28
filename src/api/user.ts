@@ -47,23 +47,37 @@ export const resetPassword = (id: number): Promise<Result> => {
   })
 }
 
+export interface UpdateUserParam {
+  username?: string
+  enabled?: boolean
+}
+
 export const disableUser = (id: number): Promise<Result> => {
+  const data: UpdateUserParam = {
+    enabled: false,
+  }
   return request({
     url: '/users/' + id,
     method: 'post',
-    data: { enable: 0 },
+    data,
   })
 }
 
 export const enableUser = (id: number): Promise<Result> => {
+  const data: UpdateUserParam = {
+    enabled: true,
+  }
   return request({
     url: '/users/' + id,
     method: 'post',
-    data: { enable: 1 },
+    data,
   })
 }
 
-export const update_user = (id: any, data: any) => {
+export const updateUser = (
+  id: number,
+  data: UpdateUserParam
+): Promise<Result> => {
   return request({
     url: '/users/' + id,
     method: 'post',

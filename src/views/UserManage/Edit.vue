@@ -14,12 +14,13 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { update_user } from '@/api/user'
+import { updateUser } from '@/api/user'
+import type { UpdateUserParam } from '@/api/user'
 import { ElNotification } from 'element-plus'
 
 // do not use same name with ref
 const formRef = ref<FormInstance>()
-const form = reactive({
+const form = reactive<UpdateUserParam>({
   username: '',
 })
 
@@ -31,16 +32,18 @@ const rules = reactive<FormRules>({
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  formEl.validate(async (valid, fields) => {
     if (valid) {
-      console.log('submit!')
-      update_user(1, form)
-      ElNotification({
-        title: '成功',
-        message: '已修改',
-        type: 'success',
-      })
-      returnPage()
+      // console.log('submit!')
+      const res = await updateUser(1, form)
+      if (res.code == 0) {
+        ElNotification({
+          title: '成功',
+          message: '已修改',
+          type: 'success',
+        })
+        returnPage()
+      }
     } else {
       console.log('error submit!', fields)
     }
@@ -49,7 +52,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 const router = useRouter()
 const returnPage = () => {
-  router.push('/userManage')
+  router.push({ name: 'ListUser' })
 }
 </script>
 
