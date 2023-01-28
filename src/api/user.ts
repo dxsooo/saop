@@ -85,7 +85,16 @@ export const updateUser = (
   })
 }
 
-export const create_user = (data: any) => {
+export interface CreateUserParam {
+  account: string
+  password: string
+  username: string
+  role_id: number | null
+}
+
+export const createUser = (
+  data: CreateUserParam
+): Promise<ResultData<UserInfo>> => {
   return request({
     url: '/users',
     method: 'post',

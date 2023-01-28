@@ -60,7 +60,7 @@ onMounted(() => {
 })
 
 const createNewUser = () => {
-  router.push('/userManage/create')
+  router.push({ name: 'CreateUser' })
 }
 
 const transStatus = (data: boolean) => {
@@ -70,11 +70,11 @@ const transStatus = (data: boolean) => {
   return '已禁用'
 }
 
-const goEdit = (data: any) => {
+const goEdit = (data: UserBaseInfo) => {
   router.push('/userManage/edit/' + data.id)
 }
 
-const resetPwd = async (data: any) => {
+const resetPwd = async (data: UserBaseInfo) => {
   const res = await resetPassword(data.id)
   // console.log(resp.data)
   if (res.code == 0) {
@@ -86,7 +86,7 @@ const resetPwd = async (data: any) => {
   }
 }
 
-const setEnable = async (data: any, value: boolean) => {
+const setEnable = async (data: UserBaseInfo, value: boolean) => {
   if (value === true) {
     const res = await enableUser(data.id)
     if (res.code == 0) {

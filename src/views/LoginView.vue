@@ -60,7 +60,7 @@ const formRef = ref<FormInstance>()
 const form = reactive<LoginParam>({ account: '', password: '' })
 const router = useRouter()
 
-const passwordHide = ref(true)
+const passwordHide = ref<boolean>(true)
 const showPwd = () => {
   passwordHide.value = !passwordHide.value
 }

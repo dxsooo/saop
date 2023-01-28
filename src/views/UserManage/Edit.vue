@@ -35,6 +35,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid, fields) => {
     if (valid) {
       // console.log('submit!')
+      // TODO: get id from path or init
       const res = await updateUser(1, form)
       if (res.code == 0) {
         ElNotification({
