@@ -14,7 +14,7 @@
     <el-table-column prop="role_name" label="角色" width="120" />
     <el-table-column label="状态" width="120">
       <template #default="scope">
-        {{ transStatus(scope.row.enable) }}
+        {{ transStatus(scope.row.enabled) }}
       </template>
     </el-table-column>
     <el-table-column label="操作" fixed="right" width="240">
@@ -24,7 +24,7 @@
           >重置密码</el-button
         >
         <el-button
-          v-if="scope.row.enable"
+          v-if="scope.row.enabled"
           size="small"
           type="danger"
           @click="setEnable(scope.row, false)"
@@ -41,15 +41,18 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { getUsers, resetPassword, disableUser, enableUser } from '@/api/user'
+import type { UserBaseInfo } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 
-const tableData = ref(null)
+const tableData = ref<UserBaseInfo[]>()
 const router = useRouter()
 
 async function fetchData() {
   const res = await getUsers(null)
-  tableData.value = res.data.items
+  if (res.data) {
+    tableData.value = res.data.items
+  }
 }
 
 onMounted(() => {
@@ -60,7 +63,7 @@ const createNewUser = () => {
   router.push('/userManage/create')
 }
 
-const transStatus = (data: Boolean) => {
+const transStatus = (data: boolean) => {
   if (data === true) {
     return '已启用'
   }
@@ -83,7 +86,7 @@ const resetPwd = async (data: any) => {
   }
 }
 
-const setEnable = async (data: any, value: Boolean) => {
+const setEnable = async (data: any, value: boolean) => {
   if (value === true) {
     const res = await enableUser(data.id)
     if (res.code == 0) {

@@ -70,8 +70,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid, fields) => {
     if (valid) {
       const res = await login(form)
-      // console.log(data)
-      if (res.code == 0) {
+      // console.log(res)
+      // console.log(res.data)
+      if (res.code == 0 && res.data) {
         // 保存到本地存储: sessionStorage
         sessionStorage.setItem('token', res.data.token)
         router.push({ name: 'Home' })

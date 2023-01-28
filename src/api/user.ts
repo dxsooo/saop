@@ -1,7 +1,24 @@
 import request from '@/utils/request'
-import type { ResultData } from '@/utils/response'
+import type { Result, ResultData, Page } from '@/utils/response'
 
-export const getUsers = (data: any) => {
+export interface UserBaseInfo {
+  id: number
+  account: string
+  username: string
+  enabled: boolean
+  role_id: number
+  role_name: string
+}
+
+export interface UserInfo extends UserBaseInfo {
+  is_admin: boolean
+  // other info
+}
+
+// TODO: filter param
+export const getUsers = (
+  data: any
+): Promise<ResultData<Page<UserBaseInfo>>> => {
   return request({
     url: '/users',
     method: 'get',
@@ -9,7 +26,7 @@ export const getUsers = (data: any) => {
   })
 }
 
-export const getCurrentUserInfo = () => {
+export const getCurrentUserInfo = (): Promise<ResultData<UserInfo>> => {
   return request({
     url: '/user',
     method: 'get',
@@ -23,14 +40,14 @@ export const getUserInfo = (id: number) => {
   })
 }
 
-export const resetPassword = (id: number): Promise<ResultData> => {
+export const resetPassword = (id: number): Promise<Result> => {
   return request({
     url: '/users/' + id + '/password',
     method: 'post',
   })
 }
 
-export const disableUser = (id: number): Promise<ResultData> => {
+export const disableUser = (id: number): Promise<Result> => {
   return request({
     url: '/users/' + id,
     method: 'post',
@@ -38,7 +55,7 @@ export const disableUser = (id: number): Promise<ResultData> => {
   })
 }
 
-export const enableUser = (id: number): Promise<ResultData> => {
+export const enableUser = (id: number): Promise<Result> => {
   return request({
     url: '/users/' + id,
     method: 'post',

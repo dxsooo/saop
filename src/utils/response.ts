@@ -4,5 +4,11 @@ export interface Result {
 }
 
 export interface ResultData<T = any> extends Result {
-  data: T
+  data?: T
+}
+
+export interface Page<T = any> {
+  items: T[]
+  total: number
+  offset: number
 }

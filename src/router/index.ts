@@ -90,30 +90,26 @@ router.beforeEach(async (to, from) => {
     // 每次路由变更检查帐号有效性
     console.log('change router')
     const res = await getCurrentUserInfo()
-    if (res.data.enable == false) {
-      ElNotification({
-        title: '操作失败',
-        message: '帐号已禁用',
-        type: 'error',
-      })
-      router.push({ name: 'Login' })
-    }
-    // 更新到store
-    const store = useUserStore()
-    store.$patch({
-      id: res.data.id,
-      username: res.data.username,
-      role_name: res.data.role_name,
-      role_id: res.data.role_id,
-      is_admin: res.data.is_admin,
-    })
-
-    if (store.role_id >= 4) {
-      if (to.name == 'Home') {
-        // 标注审核员首页是 task
-        router.push('/taskManage')
+    if (res.data) {
+      if (res.data.enabled == false) {
+        ElNotification({
+          title: '操作失败',
+          message: '帐号已禁用',
+          type: 'error',
+        })
+        router.push({ name: 'Login' })
       }
-      // TODO: 如果访问越权页面，直接去404
+      // 更新到store
+      const store = useUserStore()
+      store.$patch(res.data)
+
+      if (store.role_id && store.role_id >= 4) {
+        if (to.name == 'Home') {
+          // 标注审核员首页是 task
+          router.push('/taskManage')
+        }
+        // TODO: 如果访问越权页面，直接去404
+      }
     }
   }
 })
