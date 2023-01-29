@@ -4,7 +4,7 @@ import { useUserStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 
 const store = useUserStore()
-const { username, role_name } = storeToRefs(store)
+const { username, role_name, is_admin } = storeToRefs(store)
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const { username, role_name } = storeToRefs(store)
             <span>{{ username }} ({{ role_name }})</span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>个人中心</el-dropdown-item>
+                <el-dropdown-item v-if="!is_admin">个人中心</el-dropdown-item>
                 <el-dropdown-item>登出</el-dropdown-item>
               </el-dropdown-menu>
             </template>

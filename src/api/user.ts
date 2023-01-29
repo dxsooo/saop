@@ -89,7 +89,7 @@ export interface CreateUserParam {
   account: string
   password: string
   username: string
-  role_id: number | null
+  role_id: number
 }
 
 export const createUser = (

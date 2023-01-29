@@ -57,7 +57,7 @@ const form = reactive<CreateUserParam>({
   account: '',
   password: '',
   username: '',
-  role_id: is_admin.value ? 1 : null,
+  role_id: is_admin.value ? 1 : 0,
 })
 
 const rules = reactive<FormRules>({
