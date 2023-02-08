@@ -7,10 +7,17 @@ import type { UserConfigExport, ConfigEnv } from 'vite'
 // https://vitejs.dev/config/
 export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8080',
+        },
+      },
+    },
     plugins: [
       vue(),
       viteMockServe({
-        mockPath: 'mocks',
+        mockPath: 'src/mocks',
         localEnabled: process.env.USE_MOCK === 'true' ? true : false,
       }),
     ],

@@ -11,7 +11,7 @@ clone 仓库后，先启动后端（需要安装 docker）：
 ```bash
 git clone https://github.com/dxsooo/saop
 cd saop
-docker compose up -d -f devenv/docker-compose.yml
+docker compose -f devenv/docker-compose.yml up -d 
 ```
 
 **注意：本项目仓库不含后端代码实现**

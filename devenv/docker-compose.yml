@@ -1,1 +1,8 @@
 version: "3.9"
+
+services:
+  server:
+    image: "saop-server:0.0.3"
+    ports:
+      - "8080:8080"
+    command: ["server","serve"]
