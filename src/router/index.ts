@@ -101,7 +101,13 @@ router.beforeEach(async (to, from) => {
       }
       // 更新到store
       const store = useUserStore()
-      store.$patch(res.data)
+      store.$patch({
+        id: res.data.id,
+        username: res.data.username,
+        role_name: res.data.role_name,
+        role_id: res.data.role_id,
+        is_admin: res.data.is_admin,
+      })
 
       if (store.role_id && store.role_id >= 4) {
         if (to.name == 'Home') {
