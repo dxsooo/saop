@@ -2,7 +2,18 @@ version: "3.9"
 
 services:
   server:
-    image: "saop-server:0.0.3"
+    image: "saop-server:0.0.4"
     ports:
       - "8080:8080"
-    command: ["server","serve"]
+    command: ["server","serve","-c","/app/configs/serve.yml"]
+    volumes:
+      - ./configs:/app/configs
+    depends_on:
+      - mysql
+
+  mysql:
+    image: "mysql:8.0"
+    command: "--default-authentication-plugin=mysql_native_password"
+    environment:
+      MYSQL_DATABASE: "test"
+      MYSQL_ROOT_PASSWORD: "1111"

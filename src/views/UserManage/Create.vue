@@ -16,7 +16,7 @@
       />
     </el-form-item>
     <el-form-item label="确认密码" prop="re_password">
-      <el-input placeholder="再输入一次密码" />
+      <el-input v-model="form.re_password" placeholder="再输入一次密码" />
     </el-form-item>
     <el-form-item label="角色" prop="role_id">
       <el-radio-group v-model="form.role_id">
@@ -46,16 +46,16 @@ import { useUserStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 import { createUser } from '@/api/user'
 import { ElNotification } from 'element-plus'
-import type { CreateUserParam } from '@/api/user'
 
 const store = useUserStore()
 const { is_admin, role_id } = storeToRefs(store)
 
 // do not use same name with ref
 const formRef = ref<FormInstance>()
-const form = reactive<CreateUserParam>({
+const form = reactive<any>({
   account: '',
   password: '',
+  re_password: '',
   username: '',
   role_id: is_admin.value ? 1 : 0,
 })
@@ -81,7 +81,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid, fields) => {
     if (valid) {
       // console.log(form)
-      const res = await createUser(form)
+      const res = await createUser({
+        account: form.account,
+        password: form.password,
+        username: form.username,
+        role_id: form.role_id,
+      })
       if (res.code == 0) {
         ElNotification({
           title: '成功',

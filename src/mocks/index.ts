@@ -21,7 +21,6 @@ export default [
         account: 'John',
         username: 'John',
         enabled: true,
-        role_name: '管理员',
         is_admin: true,
       },
     },

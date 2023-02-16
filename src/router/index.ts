@@ -108,6 +108,11 @@ router.beforeEach(async (to, from) => {
         role_id: res.data.role_id,
         is_admin: res.data.is_admin,
       })
+      if (res.data.is_admin) {
+        store.$patch({
+          role_name: '管理员',
+        })
+      }
 
       if (store.role_id && store.role_id >= 4) {
         if (to.name == 'Home') {
