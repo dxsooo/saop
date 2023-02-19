@@ -101,11 +101,12 @@ const setEnable = async (data: UserBaseInfo, value: boolean) => {
     if (res.code == 0) {
       ElNotification({
         title: '成功',
-        message: '已启用',
+        message: '已禁用',
         type: 'success',
       })
     }
   }
+  fetchData()
 }
 </script>
 

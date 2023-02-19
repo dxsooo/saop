@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { updateUser } from '@/api/user'
 import type { UpdateUserParam } from '@/api/user'
 import { ElNotification } from 'element-plus'
@@ -30,13 +30,14 @@ const rules = reactive<FormRules>({
   ],
 })
 
+const route = useRoute()
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid, fields) => {
     if (valid) {
       // console.log('submit!')
       // TODO: get id from path or init
-      const res = await updateUser(1, form)
+      const res = await updateUser(Number(route.params.id as string), form)
       if (res.code == 0) {
         ElNotification({
           title: '成功',
